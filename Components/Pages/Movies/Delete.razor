@@ -45,8 +45,7 @@
 
         if (movie is null)
         {
-            // Need a way to trigger a 404 here
-            // https://github.com/dotnet/aspnetcore/issues/45654
+            NavigationManager.NavigateTo("notfound");
         }
     }
 

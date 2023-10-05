@@ -1,5 +1,6 @@
 ﻿@page "/movies/details/{id:int}"
 @inject BlazorScaffoldingContext DB
+@inject NavigationManager NavigationManager
 
 <PageTitle>Details</PageTitle>
 
@@ -42,8 +43,7 @@
 
         if (movie is null)
         {
-            // Need a way to trigger a 404 here
-            // https://github.com/dotnet/aspnetcore/issues/45654
+            NavigationManager.NavigateTo("notfound");
         }
     }
 }
