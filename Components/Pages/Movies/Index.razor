@@ -1,6 +1,7 @@
 ﻿@page "/movies"
 @using Microsoft.AspNetCore.Components.QuickGrid
 @inject BlazorScaffoldingContext DB
+@rendermode InteractiveServer
 
 <PageTitle>Index</PageTitle>
 
@@ -10,7 +11,7 @@
     <a href="movies/create">Create New</a>
 </p>
 
-<QuickGrid Class="table" Items="DB.Movie">
+<QuickGrid Class="table" Items="DB.Movie" Pagination="pagination">
     <PropertyColumn Property="movie => movie.Title" />
     <PropertyColumn Property="movie => movie.ReleaseDate" Title="Release date"/>
     <PropertyColumn Property="movie => movie.Genre" />
@@ -21,3 +22,9 @@
         <a href="@($"movies/delete/{movie.Id}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
+
+<Paginator State="pagination" />
+
+@code {
+    PaginationState pagination = new() { ItemsPerPage = 10 };
+}
