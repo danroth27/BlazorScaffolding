@@ -39,7 +39,7 @@
 </div>
 
 <div>
-    <a href="/movies">Back to List</a>
+    <a href="movies">Back to List</a>
 </div>
 
 @code {
@@ -52,6 +52,6 @@
     {
         DB.Movie.Add(Movie);
         await DB.SaveChangesAsync();
-        NavigationManager.NavigateTo("/movies");
+        NavigationManager.NavigateTo("movies");
     }
 }

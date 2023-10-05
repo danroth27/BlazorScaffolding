@@ -28,7 +28,7 @@
 
         <EditForm method="post" Model="movie" OnValidSubmit="DeleteMovie" FormName="delete">
             <button type="submit" class="btn btn-danger" disabled="@(movie is null)">Delete</button> |
-            <a href="/movies">Back to List</a>
+            <a href="movies">Back to List</a>
         </EditForm>
     }
 </div>
@@ -54,6 +54,6 @@
     {
         DB.Movie.Remove(movie!);
         await DB.SaveChangesAsync();
-        NavigationManager.NavigateTo("/movies");
+        NavigationManager.NavigateTo("movies");
     }
 }
