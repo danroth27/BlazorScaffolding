@@ -51,6 +51,9 @@ else
 </div>
 
 @code {
+    public static string Url(Movie movie) =>
+        $"movies/edit/{Uri.EscapeDataString(movie.Id.ToString())}";
+
     [Parameter]
     public int Id { get; set; }
 

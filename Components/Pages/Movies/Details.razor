@@ -25,13 +25,16 @@
             <dd class="col-sm-10">@movie.Price</dd>
         </dl>
         <div>
-            <a href="@($"movies/edit/{movie.Id}")">Edit</a> |
-            <a href="@($"movies")">Back to List</a>
+            <a href="@Edit.Url(movie)">Edit</a> |
+            <a href="movies">Back to List</a>
         </div>
     }
 </div>
 
 @code {
+    public static string Url(Movie movie) =>
+        $"movies/details/{Uri.EscapeDataString(movie.Id.ToString())}";
+
     Movie? movie;
 
     [Parameter]

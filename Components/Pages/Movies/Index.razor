@@ -17,9 +17,9 @@
     <PropertyColumn Property="movie => movie.Genre" />
     <PropertyColumn Property="movie => movie.Price" />
     <TemplateColumn Context="movie">
-        <a href="@($"movies/edit/{movie.Id}")">Edit</a> |
-        <a href="@($"movies/details/{movie.Id}")">Details</a> |
-        <a href="@($"movies/delete/{movie.Id}")">Delete</a>
+        <a href="@Edit.Url(movie)">Edit</a> |
+        <a href="@Details.Url(movie)">Details</a> |
+        <a href="@Delete.Url(movie)">Delete</a>
     </TemplateColumn>
 </QuickGrid>
 

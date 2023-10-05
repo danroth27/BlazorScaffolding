@@ -34,6 +34,9 @@
 </div>
 
 @code {
+    public static string Url(Movie movie) =>
+        $"movies/delete/{Uri.EscapeDataString(movie.Id.ToString())}";
+
     Movie? movie;
 
     [Parameter]
