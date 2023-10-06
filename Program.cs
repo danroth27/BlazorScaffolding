@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents();
 builder.Services.AddDbContext<BlazorScaffoldingContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BlazorScaffoldingContext") ?? throw new InvalidOperationException("Connection string 'BlazorScaffoldingContext' not found.")));
 builder.Services.AddQuickGridEntityFrameworkAdapter();
@@ -30,7 +29,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>();
 
 app.Run();

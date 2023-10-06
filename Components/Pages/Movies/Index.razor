@@ -1,7 +1,6 @@
 ﻿@page "/movies"
 @using Microsoft.AspNetCore.Components.QuickGrid
 @inject BlazorScaffoldingContext DB
-@rendermode InteractiveServer
 @attribute [StreamRendering]
 
 <PageTitle>Index</PageTitle>
@@ -24,8 +23,38 @@
     </TemplateColumn>
 </QuickGrid>
 
-<Paginator State="pagination" />
+<div class="paginator">
+    @if (pagination.TotalItemCount.HasValue)
+    {
+        <div class="summary">
+            <text><strong>@pagination.TotalItemCount</strong> items</text>
+        </div>
+        <nav role="navigation">
+            <a href="movies?page=0" class="go-first @Disable(!CanGoBack)" disabled="@(!CanGoBack)" aria-label="Go to first page"></a>
+            <a href="@($"movies?page={pagination.CurrentPageIndex - 1}")" class="go-previous @Disable(!CanGoBack)" aria-label="Go to previous page"></a>
+            <div class="pagination-text">
+                Page <strong>@(pagination.CurrentPageIndex + 1)</strong>
+                of <strong>@(pagination.LastPageIndex + 1)</strong>
+            </div>
+            <a href="@($"movies?page={pagination.CurrentPageIndex + 1}")" class="go-next @Disable(!CanGoForwards)" aria-label="Go to next page"></a>
+            <a href="@($"movies?page={pagination.LastPageIndex.GetValueOrDefault(0)}")" class="go-last @Disable(!CanGoForwards)" aria-label="Go to last page"></a>
+        </nav>
+    }
+</div>
 
 @code {
-    PaginationState pagination = new() { ItemsPerPage = 10 };
+    PaginationState pagination = new() { ItemsPerPage = 3 };
+
+    [SupplyParameterFromQuery]
+    public int Page { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        pagination.TotalItemCountChanged += (sender, eventArgs) => StateHasChanged();
+        await pagination.SetCurrentPageIndexAsync(Page);
+    }
+
+    bool CanGoBack => pagination.CurrentPageIndex > 0;
+    bool CanGoForwards => pagination.CurrentPageIndex < pagination.LastPageIndex;
+    string Disable(bool disable) => disable ? "disabled" : "";
 }
